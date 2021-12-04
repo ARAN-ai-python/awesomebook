@@ -20,7 +20,9 @@ SELECT
     # 下位のデータ型に変換すると、取得しなかった情報は切り捨てられる
     DATE(reserve_datetime) AS reserve_datetime_date,
     DATETIME(reserve_datetime) AS reserve_datetime_datetime,
-    TIMESTAMP(reserve_datetime) AS reserve_datetime_timestamp,
+    TIMESTAMP(reserve_datetime) AS reserve_datetime_timestamp_utc, # 何も指定しなければutc
+    TIMESTAMP(reserve_datetime, 'Asia/Tokyo') AS reserve_datetime_timestamp_jst, # タイムゾーンを指定すると時間が修正される
+    
     # 以下のPARSE_DATE/DATETIME/TIMESTAMP関数でも変換できるけど面倒
     #CAST(PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', reserve_datetime) AS DATE) AS reserve_datetime_parsedate, # datetime型の文字列を直接date型に変換できない
     #PARSE_DATETIME('%Y-%m-%d %H:%M:%S', reserve_datetime) AS reserve_datetime_parsedatetime,
